@@ -1,0 +1,15 @@
+Package          Version
+---------------- -------
+click            8.0.3
+Flask            2.0.2
+greenlet         1.1.2
+itsdangerous     2.0.1
+Jinja2           3.0.2
+MarkupSafe       2.0.1
+pip              21.2.4
+setuptools       58.1.0
+six              1.16.0
+SQLAlchemy       1.4.25
+SQLAlchemy-Utils 0.37.8
+Werkzeug         2.0.2
+wheel            0.37.0
