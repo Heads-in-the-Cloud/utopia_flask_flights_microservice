@@ -1,21 +1,7 @@
-FROM debian:latest
-
-LABEL email="jesus.medina@smoothstack.com" 
-
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
-COPY ./requirements.txt /app/requirements.txt
-
-WORKDIR /app
-
-RUN pip install -r requirements.txt
-
+FROM python
 COPY . /app
-
-ENTRYPOINT [ "python" ]
-
-CMD [ "routes.py" ]
-
-
-
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+EXPOSE 5001
+ENTRYPOINT [ "python3" ]
+CMD [ "app.py" ]
