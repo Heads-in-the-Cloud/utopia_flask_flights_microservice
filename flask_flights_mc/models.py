@@ -1,19 +1,63 @@
-import datetime
-from flask import Flask
-from sqlalchemy import create_engine
-from flask_flights_mc import db
-from sqlalchemy_utils import database_exists, create_database
-
-engine = create_engine("")
-if not database_exists(engine.url):
-    create_database(engine.url)
-
-print(database_exists(engine.url))
+# Import packages
+from datetime import datetime
+import flask_sqlalchemy
+db = flask_sqlalchemy.SQLAlchemy()
 
 class Airport(db.Model):
-    iata_id = db.Column(db.String(3), primary_key=True)
-    city = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    __tablename__ = "airport"
+    iata_id = db.Column(db.String, primary_key=True)
+    city = db.Column(db.String)
 
     def __repr__(self):
-        return f"Airport( '{self.iata_id}', '{self.city}', '{self.date_posted}') "
+        return f"Airport( '{self.iata_id}', '{self.city}' "
+
+class Route(db.Model):
+    __tablename__ = "route"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    origin_id = db.Column(db.String, db.ForeignKey("airport.iata_id"), nullable=False)
+    destination_id = db.Column(db.String, db.ForeignKey("airport.iata_id"), nullable=False)
+
+    def __repr__(self):
+        return f"Route( '{self.id}', Origin Airport: '{self.origin_id}', Destination Airport: '{self.destination_id}' "
+
+
+class Flight(db.Model):
+    __tablename__ = "flight"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    route_id = db.Column(db.Integer, db.ForeignKey("route.id"), nullable=False)
+    airplane_id = db.Column(db.Integer, db.ForeignKey("airplane.id"), nullable=False)
+    departure_time = db.Column(db.DateTime)
+    reserved_seats = db.Column(db.Integer, nullable=False, default=0)
+    seat_price = db.Column(db.Float, nullable=False, default=0.00)
+
+    def __repr__(self):
+        return f"Flight( '{self.id}', Route: '{self.route_id}', AirplaneId: '{self.airplane_id}', Departure Time: '{self.departure_time}'  "
+
+
+class Airplane(db.Model):
+    __tablename__ = "airplane"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    type_id = db.Column(db.Integer, db.ForeignKey("airplane_type.id"), nullable=False)
+
+    def __repr__(self):
+        return f"Airport( '{self.iata_id}', '{self.city}' "
+
+
+class AirplaneType(db.Model):
+    __tablename__ = "airplane_type"
+    id = db.Column(db.Integer, primary_key=True)
+    max_capacity = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"AirplaneType( '{self.id}', '{self.max_capacity}' "
+
+
+        
+
+
+
+
+
+
+
+
