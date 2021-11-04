@@ -1,24 +1,24 @@
 # Flask/Python Packages
-from flask import Flask, request
+from random import getrandbits
+from flask import Flask, request, jsonify, make_response
 from . import create_app
-from .models import * 
+from .models import *                                                                                              
 from .models import db
 import json
 from .database import *
 
 app = create_app()
 
-
 @app.route('/airports', methods = ['POST', 'GET'])
 def getPostAirport():
     if request.method == 'GET':
         airports = Airport.query.all()
         all_airports = []
-        for airport in airports:
+        for airport in airports:                                                 
             new_airports = {
-                "iata_id": airport.iata_id,
-                "city": airport.city
-            }
+                 "iata_id": airport.iata_id,
+                 "city": airport.city
+             }
             all_airports.append(new_airports)
         return json.dumps(all_airports), 200
     if request.method == 'POST':
@@ -57,6 +57,14 @@ def getPostRoutes():
             }
             all_routes.append(new_routes)
         return json.dumps(all_routes), 200
+    if request.method == 'POST':
+        data = request.get_json()
+        origin_id = data['origin_id']
+        destination_id = data['destination_id']
+        route = Route(origin_id=origin_id, destination_id=destination_id)
+        db.session.add(route)
+        db.session.commit()
+        return json.dumps("Added New Route"), 200
 
 @app.route('/routes/<route_id>', methods = ['DELETE', 'PATCH'])
 def deletePatchRoute(route_id):
@@ -73,7 +81,7 @@ def deletePatchRoute(route_id):
         return json.dumps("Edited Route Success"), 200
 
 @app.route('/flights', methods = ['GET', 'POST'])
-def getPostFlights():
+def getPostFlights(**kwargs):
     if request.method == 'GET':
         flights = Flight.query.all()
         all_flights = []
@@ -87,6 +95,26 @@ def getPostFlights():
             }
             all_flights.append(new_flights)
         return json.dumps(all_flights), 200
+    if request.method == 'POST':
+        data = request.get_json()
+        route_id = data['route_id']
+        airplane_id = data['airplane_id']
+        departure_time = data['departure_time']
+        reserved_seats = data['reserved_seats']
+        seat_price = data['seat_price']
+        flight = Flight(
+                    route_id=route_id, 
+                    airplane_id=airplane_id, 
+                    departure_time=departure_time,
+                    reserved_seats=reserved_seats,
+                    seat_price=seat_price
+                    )
+        db.session.add(flight)
+        db.session.commit()
+        return json.dumps("Added New Flight"), 200
+
+
+
 
 
 
