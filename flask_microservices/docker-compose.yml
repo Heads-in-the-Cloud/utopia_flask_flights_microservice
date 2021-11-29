@@ -1,5 +1,9 @@
 version: "3.8"
 services:
+  flights: 
+    build:
+      context:
+        ./flights_api
   mysqlserver:
     build:
       context:
