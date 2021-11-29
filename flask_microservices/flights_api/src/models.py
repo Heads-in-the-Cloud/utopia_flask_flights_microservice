@@ -1,7 +1,6 @@
 # Import packages
 from datetime import datetime
-import flask_sqlalchemy
-db = flask_sqlalchemy.SQLAlchemy()
+from src import db
 
 class Airport(db.Model):
     __tablename__ = "airport"
