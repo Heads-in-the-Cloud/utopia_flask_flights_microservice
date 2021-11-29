@@ -2,6 +2,8 @@ from faker      import Faker
 from random     import randrange
 from datetime   import timedelta
 from datetime   import datetime
+from .models import *                                                                                              
+from .models import db
 
 import requests
 import json

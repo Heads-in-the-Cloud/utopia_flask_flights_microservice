@@ -1,14 +1,10 @@
 # Flask/Python Packages
-from random import getrandbits
-from flask import Flask, request, jsonify, make_response
-from . import create_app
-from .models import *                                                                                              
-from .models import db
+from flask import request, jsonify, make_response
+from . import app
+from .models import *                                                                 
 import json
 from .database import *
-
-app = create_app()
-
+    
 @app.route('/airports', methods = ['POST', 'GET'])
 def getPostAirport():
     if request.method == 'GET':
