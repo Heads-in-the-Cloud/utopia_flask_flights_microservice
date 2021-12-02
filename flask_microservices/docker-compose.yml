@@ -4,6 +4,10 @@ services:
     build:
       context:
         ./flights_api
+  bookings: 
+    build:
+      context:
+        ./bookings_api
   mysqlserver:
     build:
       context:
@@ -12,11 +16,11 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=
-      - MYSQL_PASSWORD=
-      - MYSQL_DATABASE=
+      - MYSQL_USER=chuy
+      - MYSQL_PASSWORD=knowledge13
+      - MYSQL_DATABASE=utopia
     volumes:
       - mysql_data:/var/lib/mysql
       - mysql_config:/etc/mysql/conf.d

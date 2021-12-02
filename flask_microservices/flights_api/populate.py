@@ -2,15 +2,15 @@ from faker      import Faker
 from random     import randrange
 from datetime   import timedelta
 from datetime   import datetime
-from .models import *                                                                                              
-from .models import db
+from src.models import *                                                                                              
+from src.models import db
 
 import requests
 import json
 
 fake = Faker()
 
-PORT = 5000
+PORT = 3000
 
 apiRoute = f'http://localhost:{PORT}/flights'
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
@@ -25,7 +25,7 @@ def random_date(start, end):
     return start + timedelta(seconds=random_second)
 
 def populateFlights():
-    for i in range(100):
+    for i in range(10):
         flight = []
         flight.append({
             "route_id": fake.pyint(min_value=1, max_value=14, step=1),
