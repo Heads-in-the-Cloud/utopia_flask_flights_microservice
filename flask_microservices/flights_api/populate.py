@@ -10,7 +10,7 @@ import json
 
 fake = Faker()
 
-PORT = 3000
+PORT = 5000
 
 apiRoute = f'http://localhost:{PORT}/flights'
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}

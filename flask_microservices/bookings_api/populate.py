@@ -9,7 +9,7 @@ from src.models    import *
 
 
 fake = Faker()
-PORT = 3001
+PORT = 5001
 apiRoute = f'http://localhost:{PORT}/bookings'
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 

@@ -23,5 +23,27 @@ class UserRole(db.Model):
     def __repr__(self):
         return f"User Role: ( '{self.name}' ) "
     
+booking_agent = db.Table(
+    "booking_agent",
+    db.metadata,
+    db.Column("booking_id", db.Integer, db.ForeignKey("booking.id"), primary_key=True),
+    db.Column("agent_id", db.Integer, db.ForeignKey("user.id"), primary_key=True)
+)
+
+
+booking_user = db.Table(
+    "booking_user",
+    db.metadata,
+    db.Column("booking_id", db.Integer, db.ForeignKey("booking.id"), primary_key=True),
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True)
+)
+
+
+flight_booking = db.Table(
+    "flight_booking",
+    db.metadata,
+    db.Column("flight_id", db.Integer, db.ForeignKey("flight.id"), primary_key=True),
+    db.Column("booking_id", db.Integer, db.ForeignKey("booking.id"), primary_key=True)
+)
     
     
