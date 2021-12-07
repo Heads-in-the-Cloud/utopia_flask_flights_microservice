@@ -1,26 +1,69 @@
 version: "3.8"
 services:
-  flights: 
-    build:
-      context:
-        ./flights_api
-  mysqlserver:
+  db:
     build:
       context:
         ./mysql
     restart: always
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=
-      - MYSQL_PASSWORD=
-      - MYSQL_DATABASE=
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=utopia
+      - MYSQL_HOST=host.docker.internal
     volumes:
       - mysql_data:/var/lib/mysql
       - mysql_config:/etc/mysql/conf.d
       - ./mysql:/home
+    networks:
+      - utopia-network
+
+  bookings:  
+    build:
+      context:
+        ./bookings_api
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+        - "5000:5000"
+    networks:
+      - utopia-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=utopia
+      - MYSQL_HOST=host.docker.internal
+
+  flights: 
+    build:
+      context:
+        ./flights_api
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+        - "5001:5001"
+    networks:
+      - utopia-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=utopia
+      - MYSQL_HOST=host.docker.internal
+
+networks:
+  utopia-network:
+    external: true
 
 volumes:
   mysql_data:

@@ -6,6 +6,9 @@ class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Integer, nullable=False)
     confirmation_code = db.Column(db.String, nullable=False)
+    
+    def __repr__(self):
+        return f"Booking: ( '{self.id}', IsActive: '{self.is_active}' Confirmation Code: '{self.confirmation_code}' "
 
 
 class BookingGuest(db.Model):
@@ -13,6 +16,9 @@ class BookingGuest(db.Model):
     booking_id = db.Column(db.Integer, db.ForeignKey("booking.id"), primary_key=True)
     contact_email = db.Column(db.String, nullable=False)
     contact_phone = db.Column(db.String)
+    
+    def __repr__(self):
+        return f"Booking: ( '{self.booking_id}', Email: '{self.contact_email}' "
 
 
 class BookingPayment(db.Model):
@@ -20,6 +26,9 @@ class BookingPayment(db.Model):
     booking_id = db.Column(db.Integer, db.ForeignKey("booking.id"), primary_key=True)
     stripe_id = db.Column(db.String, nullable=False)
     refunded = db.Column(db.Boolean, nullable=False, default=False)
+    
+    def __repr__(self):
+        return f"Booking: ( '{self.id}', IsActive: '{self.is_active}' Confirmation Code: '{self.confirmation_code}' "
 
 
 class Passenger(db.Model):
@@ -31,6 +40,9 @@ class Passenger(db.Model):
     dob = db.Column(db.Date, nullable=False)
     gender = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
+    
+    def __repr__(self):
+        return f"Passenger: ( '{self.id}', booking_id: '{self.booking_id}'"
 
 booking_agent = db.Table(
     "booking_agent",
