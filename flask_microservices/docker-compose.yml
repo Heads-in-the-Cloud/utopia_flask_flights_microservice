@@ -60,6 +60,25 @@ services:
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_HOST=${DB_HOST}
+  users: 
+    build:
+      context:
+        ./users
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+        - ${USERS_PORTS}
+    networks:
+      - utopia-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_HOST=${DB_HOST}
 
 networks:
   utopia-network:

@@ -1,7 +1,7 @@
 # Flask/Python Packages
 from flask import request, jsonify, make_response
 from . import app
-from .models import *                                                                 
+from .models.flight import *                                                                 
 import json
 from .database import *
     

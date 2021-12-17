@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-# from flask_bcrypt import Bcrypt
 
 load_dotenv()
 
@@ -16,6 +15,7 @@ db_port     = os.getenv('MYSQL_PORT')
 db_name     = os.getenv('MYSQL_DB')
 
 DATABASE_URI = f'mysql+pymysql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'
+
 
 
 app = Flask(__name__)

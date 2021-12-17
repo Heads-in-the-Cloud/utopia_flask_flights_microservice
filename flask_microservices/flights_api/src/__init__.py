@@ -4,7 +4,6 @@ from flask_mysqldb import MySQL
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
-# from flask_bcrypt import Bcrypt
 
 load_dotenv()
 
@@ -26,7 +25,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 db.init_app(app)
 db.create_all()
-# bcrypt = Bcrypt(app)
+
 
 from src import views
 
