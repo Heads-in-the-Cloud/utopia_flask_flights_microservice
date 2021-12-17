@@ -1,6 +1,7 @@
 # Import packages
 from datetime import datetime
 from src import db
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
 
 class Airport(db.Model):
     __tablename__ = "airport"

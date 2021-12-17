@@ -1,4 +1,4 @@
-from . models import db
+from .models.flight import db
 import flask
 from flask import request, jsonify, make_response
 from flask_restful import Resource, Api
