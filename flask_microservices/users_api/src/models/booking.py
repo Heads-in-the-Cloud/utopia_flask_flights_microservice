@@ -1,5 +1,8 @@
 from datetime import datetime
 from src import db
+from .users import *
+from .flight import *
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
 
 class Booking(db.Model):
     __tablename__ = "booking"
@@ -43,7 +46,7 @@ class Passenger(db.Model):
     
     def __repr__(self):
         return f"Passenger: ( '{self.id}', booking_id: '{self.booking_id}'"
-
+    
 booking_agent = db.Table(
     "booking_agent",
     db.metadata,
